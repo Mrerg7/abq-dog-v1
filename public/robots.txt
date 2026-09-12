@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abq.dog/sitemap-index.xml
