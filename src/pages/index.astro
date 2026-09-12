@@ -12,32 +12,31 @@ const STREAM_SRC =
 
   <main class="flex-1">
     <section class="relative bg-bark-950">
-      {/* Mobile: tall cover crop so the Stream frame stays visible; desktop keeps native 16:9. */}
-      <div class="relative w-full min-h-[72svh] overflow-hidden sm:min-h-0 sm:pt-[54.32098765432099%]">
+      {/* Native 16:9 stream — no tall crop letterboxing. Mobile copy sits below; desktop overlays. */}
+      <div class="relative w-full pt-[56.25%] sm:pt-[54.32098765432099%]">
         <iframe
           src={STREAM_SRC}
           title="ABQ.Dog hero video"
-          loading="lazy"
-          class="hero-stream absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-0"
+          class="absolute inset-0 h-full w-full border-0"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowfullscreen="true"
         ></iframe>
-        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bark-950/90 via-bark-950/25 to-transparent sm:from-bark-950 sm:via-bark-950/55 sm:to-bark-950/15"></div>
-        <div class="absolute inset-0 flex items-end">
-          <div class="container-narrow w-full pb-6 pt-24 sm:pb-10 sm:pt-20">
-            <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-sage-400 sm:mb-3 sm:text-xs">
-              Albuquerque · Daycare · Boarding · Groom · Train
-            </p>
-            <h1 class="font-display text-4xl font-semibold leading-none text-white sm:text-6xl lg:text-7xl">
-              ABQ<span class="text-bark-200">.Dog</span>
-            </h1>
-            <p class="mt-3 max-w-xl text-sm leading-relaxed text-bark-100/90 sm:mt-5 sm:text-lg">
-              A short domain for dog care brands in the high desert — daycare, boarding, grooming, and training.
-            </p>
-            <div class="mt-5 flex flex-col gap-2 sm:mt-8 sm:flex-row sm:gap-3">
-              <a href="#care" class="btn-primary pointer-events-auto">See the Fit</a>
-              <a href="#acquisition" class="btn-secondary pointer-events-auto">Domain Available</a>
-            </div>
+        <div class="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-bark-950 via-bark-950/55 to-bark-950/15 sm:block"></div>
+      </div>
+      <div class="bg-bark-950 px-4 pb-10 pt-8 sm:absolute sm:inset-0 sm:flex sm:items-end sm:bg-transparent sm:px-0 sm:pb-0 sm:pt-0">
+        <div class="container-narrow w-full sm:pb-10 sm:pt-20">
+          <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-sage-400 sm:mb-3 sm:text-xs">
+            Albuquerque · Daycare · Boarding · Groom · Train
+          </p>
+          <h1 class="font-display text-4xl font-semibold leading-none text-white sm:text-6xl lg:text-7xl">
+            ABQ<span class="text-bark-200">.Dog</span>
+          </h1>
+          <p class="mt-3 max-w-xl text-sm leading-relaxed text-bark-100/90 sm:mt-5 sm:text-lg">
+            A short domain for dog care brands in the high desert — daycare, boarding, grooming, and training.
+          </p>
+          <div class="mt-5 flex flex-col gap-2 sm:mt-8 sm:flex-row sm:gap-3">
+            <a href="#care" class="btn-primary pointer-events-auto">See the Fit</a>
+            <a href="#acquisition" class="btn-secondary pointer-events-auto">Domain Available</a>
           </div>
         </div>
       </div>
