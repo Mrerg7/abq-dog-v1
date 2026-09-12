@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const STREAM_SRC =
+  'https://customer-wa9cpywo3l4jte5c.cloudflarestream.com/724f9e6e8b59b7ef5a7066e853f241ee/iframe?muted=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-wa9cpywo3l4jte5c.cloudflarestream.com%2F724f9e6e8b59b7ef5a7066e853f241ee%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600&controls=false';
+---
+
+<Layout>
+  <Header />
+
+  <main class="flex-1">
+    <section class="relative bg-bark-950">
+      <div class="relative w-full" style="padding-top: 54.32098765432099%;">
+        <iframe
+          src={STREAM_SRC}
+          title="ABQ.Dog hero video"
+          loading="lazy"
+          style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          allowfullscreen="true"
+        ></iframe>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bark-950 via-bark-950/55 to-bark-950/15"></div>
+        <div class="absolute inset-0 flex items-end">
+          <div class="container-narrow w-full pb-6 pt-16 sm:pb-10 sm:pt-20">
+            <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-sage-400 sm:mb-3 sm:text-xs">
+              Albuquerque · Daycare · Boarding · Groom · Train
+            </p>
+            <h1 class="font-display text-4xl font-semibold leading-none text-white sm:text-6xl lg:text-7xl">
+              ABQ<span class="text-bark-200">.Dog</span>
+            </h1>
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-bark-100/90 sm:mt-5 sm:text-lg">
+              A short domain for dog care brands in the high desert — daycare, boarding, grooming, and training.
+            </p>
+            <div class="mt-5 flex flex-col gap-2 sm:mt-8 sm:flex-row sm:gap-3">
+              <a href="#care" class="btn-primary pointer-events-auto">See the Fit</a>
+              <a href="#acquisition" class="btn-secondary pointer-events-auto">Domain Available</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="care" class="section-padding bg-white">
+      <div class="container-narrow">
+        <div class="max-w-2xl">
+          <h2 class="font-display text-3xl font-semibold text-bark-950 sm:text-4xl">What the name holds</h2>
+          <p class="mt-4 text-base text-bark-800 sm:text-lg">
+            Dog owners search by city first. ABQ.Dog covers the services they book most often — without a long brand name.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-3">
+          <article class="card">
+            <h3 class="font-display text-xl font-semibold text-bark-950">Daycare & boarding</h3>
+            <p class="mt-2 text-sm leading-relaxed text-bark-700">Weekday play and overnight stays for owners who work, travel, or hike the Sandias.</p>
+          </article>
+          <article class="card">
+            <h3 class="font-display text-xl font-semibold text-bark-950">Grooming</h3>
+            <p class="mt-2 text-sm leading-relaxed text-bark-700">Coat, nails, and bath work that holds up in dry air and dusty trail days.</p>
+          </article>
+          <article class="card">
+            <h3 class="font-display text-xl font-semibold text-bark-950">Training</h3>
+            <p class="mt-2 text-sm leading-relaxed text-bark-700">Puppy, manners, and recall for a city that lives outdoors most of the year.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="place" class="section-padding bg-bark-100">
+      <div class="container-narrow grid gap-10 lg:grid-cols-2 lg:items-start">
+        <div>
+          <h2 class="font-display text-3xl font-semibold text-bark-950 sm:text-4xl">Built for the high desert</h2>
+          <p class="mt-4 text-base text-bark-800 sm:text-lg">
+            Heat, altitude, and year-round outdoor time change how dogs are cared for here. The domain matches how locals already search.
+          </p>
+          <ul class="mt-8 space-y-4 text-sm text-bark-800 sm:text-base">
+            <li class="flex gap-3"><span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-sage-500"></span><span><strong class="text-bark-950">Local intent</strong> — ABQ plus dog is how owners look for care.</span></li>
+            <li class="flex gap-3"><span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-sage-500"></span><span><strong class="text-bark-950">Climate-aware care</strong> — shade, water, and paw protection matter more at 5,300 feet.</span></li>
+            <li class="flex gap-3"><span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-sage-500"></span><span><strong class="text-bark-950">Multi-service brand</strong> — one name for daycare, boarding, groom, and train.</span></li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-bark-200 bg-white p-5 sm:p-8">
+          <dl class="space-y-5">
+            <div class="flex items-baseline justify-between gap-4 border-b border-bark-100 pb-4">
+              <dt class="text-sm text-bark-600">Market</dt>
+              <dd class="font-display text-xl font-semibold text-bark-800 sm:text-2xl">Albuquerque</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-4 border-b border-bark-100 pb-4">
+              <dt class="text-sm text-bark-600">Elevation</dt>
+              <dd class="font-display text-xl font-semibold text-bark-800 sm:text-2xl">~5,300 ft</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-4 border-b border-bark-100 pb-4">
+              <dt class="text-sm text-bark-600">Brand fit</dt>
+              <dd class="font-display text-xl font-semibold text-bark-800 sm:text-2xl">Care · Groom · Train</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-4">
+              <dt class="text-sm text-bark-600">TLD</dt>
+              <dd class="font-display text-xl font-semibold text-bark-800 sm:text-2xl">.dog</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section id="brand" class="section-padding bg-white">
+      <div class="container-narrow max-w-3xl">
+        <h2 class="font-display text-3xl font-semibold text-bark-950 sm:text-4xl">Why this domain</h2>
+        <div class="mt-6 space-y-4 text-sm leading-relaxed text-bark-800 sm:text-base">
+          <p>
+            <strong class="text-bark-950">ABQ.Dog</strong> is city plus category on a purpose-built TLD. It works on a van wrap, a booking page, and a search result.
+          </p>
+          <p>
+            Available for a daycare, groomer, trainer, or multi-location pet brand in New Mexico.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-bark-100 bg-bark-100 py-10 sm:py-12">
+      <div class="container-narrow text-center">
+        <p class="mx-auto max-w-2xl text-xs leading-relaxed text-bark-600 sm:text-sm">
+          Information presented is for demonstration and educational purposes only and does not constitute an offer of pet-care services.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
