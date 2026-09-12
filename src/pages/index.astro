@@ -12,18 +12,19 @@ const STREAM_SRC =
 
   <main class="flex-1">
     <section class="relative bg-bark-950">
-      <div class="relative w-full" style="padding-top: 54.32098765432099%;">
+      {/* Mobile: tall cover crop so the Stream frame stays visible; desktop keeps native 16:9. */}
+      <div class="relative w-full min-h-[72svh] overflow-hidden sm:min-h-0 sm:pt-[54.32098765432099%]">
         <iframe
           src={STREAM_SRC}
           title="ABQ.Dog hero video"
           loading="lazy"
-          style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
+          class="hero-stream absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-0"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowfullscreen="true"
         ></iframe>
-        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bark-950 via-bark-950/55 to-bark-950/15"></div>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bark-950/90 via-bark-950/25 to-transparent sm:from-bark-950 sm:via-bark-950/55 sm:to-bark-950/15"></div>
         <div class="absolute inset-0 flex items-end">
-          <div class="container-narrow w-full pb-6 pt-16 sm:pb-10 sm:pt-20">
+          <div class="container-narrow w-full pb-6 pt-24 sm:pb-10 sm:pt-20">
             <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-sage-400 sm:mb-3 sm:text-xs">
               Albuquerque · Daycare · Boarding · Groom · Train
             </p>
