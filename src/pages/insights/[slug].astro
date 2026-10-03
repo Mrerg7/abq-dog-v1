@@ -1,0 +1,101 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('insights', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { slug: post.slug } }));
+}
+
+const { slug } = Astro.props;
+const post = await getEntry('insights', slug);
+if (!post) return Astro.redirect('/insights/');
+const { Content } = await post.render();
+
+const canonical = `https://abq.dog/insights/${post.slug}/`;
+const title = `${post.data.title} | ABQ.Dog Insights`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: { '@type': 'Organization', name: 'Desert Rich' },
+  publisher: { '@type': 'Organization', name: 'ABQ.Dog' },
+  mainEntityOfPage: canonical,
+};
+
+// Related posts for internal linking
+const all = (await getCollection('insights', ({ data }) => !data.draft)).filter((p) => p.slug !== post.slug).slice(0, 2);
+---
+
+<Layout title={title} description={post.data.description} canonical={canonical}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <Header />
+  <main id="main" class="flex-1">
+    <section class="bg-bark-950">
+      <div class="container-narrow max-w-3xl py-12 sm:py-16">
+        <nav aria-label="Breadcrumb" class="text-sm text-bark-300">
+          <a href="/" class="hover:text-white">Home</a>
+          <span aria-hidden="true" class="mx-2">/</span>
+          <a href="/insights/" class="hover:text-white">Insights</a>
+          <span aria-hidden="true" class="mx-2">/</span>
+          <span aria-current="page" class="text-bark-100">{post.data.title}</span>
+        </nav>
+        <p class="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-sage-400">
+          {(post.data.tags[0] || 'Guide').replace(/-/g, ' ')}
+        </p>
+        <h1 class="mt-2 font-display text-3xl font-semibold text-white sm:text-5xl">{post.data.title}</h1>
+        <p class="mt-4 text-base text-bark-100/90 sm:text-lg">{post.data.description}</p>
+        <p class="mt-4 text-sm text-bark-300">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+        </p>
+      </div>
+    </section>
+    <article class="section-padding bg-white">
+      <div class="container-narrow max-w-3xl">
+        <div class="prose prose-bark max-w-none prose-headings:font-display prose-headings:text-bark-950 prose-a:text-bark-800 prose-a:underline">
+          <Content />
+        </div>
+        {
+          post.data.tags.length > 0 && (
+            <ul class="mt-8 flex flex-wrap gap-2" aria-label="Tags">
+              {post.data.tags.map((tag) => (
+                <li class="rounded-full border border-bark-200 px-4 py-2 text-sm text-bark-700">{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+        <div class="mt-10 rounded-2xl bg-bark-950 p-6 text-center sm:p-8">
+          <h2 class="font-display text-2xl font-semibold text-white">ABQ.Dog is available — $100,000</h2>
+          <p class="mt-2 text-base text-bark-200">Secure escrow transfer. Response within 1–2 business days.</p>
+          <div class="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
+            <a href="mailto:sales@desertrich.com?subject=Buy%20Now%3A%20ABQ.Dog" class="btn-primary">Buy Now</a>
+            <a href="/#acquisition" class="btn-secondary">All acquisition options</a>
+          </div>
+        </div>
+        {
+          all.length > 0 && (
+            <div class="mt-10">
+              <h2 class="font-display text-2xl font-semibold text-bark-950">Keep reading</h2>
+              <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                {all.map((rel) => (
+                  <a href={`/insights/${rel.slug}/`} class="card block">
+                    <h3 class="font-display text-lg font-semibold text-bark-950">{rel.data.title}</h3>
+                    <p class="mt-2 text-base text-bark-700">{rel.data.description}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Layout>

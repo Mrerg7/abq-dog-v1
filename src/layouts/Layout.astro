@@ -6,19 +6,110 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonical?: string;
+  noindex?: boolean;
 }
 
 const POSTER =
   'https://customer-wa9cpywo3l4jte5c.cloudflarestream.com/724f9e6e8b59b7ef5a7066e853f241ee/thumbnails/thumbnail.jpg?time=&height=600';
 
 const {
-  title = 'ABQ.Dog | Albuquerque Dog Brand',
-  description = 'Albuquerque dog brand concept for daycare, boarding, grooming, and training. Domain available for acquisition.',
+  title = 'ABQ.Dog | Premium Domain for Sale | ABQ Dog Brand',
+  description = 'ABQ.Dog is for sale — $100,000. Short Albuquerque dog-care domain for daycare, boarding, grooming & training. Secure escrow transfer. Make an offer today.',
   ogImage = POSTER,
   canonical = 'https://abq.dog/',
+  noindex = false,
 } = Astro.props;
 
 const siteName = 'ABQ.Dog';
+const contactEmail = 'sales@desertrich.com';
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: 'https://abq.dog/',
+  description,
+  inLanguage: 'en-US',
+};
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'ABQ.Dog — Premium Domain Name',
+  description:
+    'City + category domain on the .dog TLD. Ideal for Albuquerque daycare, boarding, grooming, training, or a multi-service dog brand. Buy ABQ.Dog domains via secure escrow.',
+  url: 'https://abq.dog/',
+  image: ogImage,
+  brand: { '@type': 'Brand', name: siteName },
+  category: 'Domain Names > Premium Domain Names',
+  offers: {
+    '@type': 'Offer',
+    price: '100000',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: 'https://abq.dog/#acquisition',
+    seller: { '@type': 'Organization', name: 'Desert Rich', email: contactEmail },
+  },
+};
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Desert Rich',
+  url: 'https://abq.dog/',
+  email: contactEmail,
+  areaServed: 'Albuquerque, New Mexico',
+  sameAs: [],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Is ABQ.Dog for sale?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. ABQ.Dog is available for acquisition at $100,000 for serious inquiries, transferred via a licensed escrow service.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does the domain transfer work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'After agreeing on terms, funds are held by escrow (e.g. Escrow.com), the domain is pushed to your registrar account, and funds are released when you confirm control. Typical timeline is 1–2 business days for response and a few days for transfer.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I make an offer below the list price?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Serious offers are reviewed. Use the Make Offer button to contact sales@desertrich.com with your price, timeline, and intended use.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What businesses fit ABQ.Dog?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Dog daycare, boarding, grooming, training, pet sitting, or a multi-location Albuquerque pet brand. The city + .dog combination matches how owners search: premium domain names with local intent.',
+      },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://abq.dog/' },
+    { '@type': 'ListItem', position: 2, name: 'The Domain', item: 'https://abq.dog/#brand' },
+    { '@type': 'ListItem', position: 3, name: 'Acquire', item: 'https://abq.dog/#acquisition' },
+  ],
+};
 ---
 
 <!doctype html>
@@ -29,9 +120,34 @@ const siteName = 'ABQ.Dog';
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
     <link rel="canonical" href={canonical} />
     <meta name="google-site-verification" content="udFj3eTawyUm-eXv0JPIcVC8T30ZkAcEfhNdQL_dPiE" />
+    <meta name="theme-color" content="#2b1d17" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Performance: preconnect to font + stream origins (no render-blocking @import) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://customer-wa9cpywo3l4jte5c.cloudflarestream.com" crossorigin />
+    <link rel="dns-prefetch" href="https://customer-wa9cpywo3l4jte5c.cloudflarestream.com" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
@@ -47,27 +163,16 @@ const siteName = 'ABQ.Dog';
     <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#2b1d17" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": siteName,
-      "url": "https://abq.dog",
-      "description": description
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": title,
-      "description": description,
-      "url": canonical,
-      "primaryImageOfPage": { "@type": "ImageObject", "url": ogImage },
-      "datePublished": "2026-09-12",
-      "dateModified": "2026-09-12"
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main" class="skip-link">Skip to content</a>
     <slot />
   </body>
 </html>

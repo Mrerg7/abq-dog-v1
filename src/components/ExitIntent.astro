@@ -1,0 +1,90 @@
+---
+// Exit-intent email capture — 100% client-side, free-plan friendly.
+// No backend: stores to localStorage and opens a prefilled inquiry email.
+---
+
+<div
+  id="exit-popup"
+  class="fixed inset-0 z-[90] hidden items-center justify-center bg-bark-950/70 p-4 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exit-title"
+>
+  <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl sm:p-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sage-600">Before you go</p>
+    <h2 id="exit-title" class="mt-2 font-display text-2xl font-semibold text-bark-950">
+      Get the ABQ.Dog acquisition brief
+    </h2>
+    <p class="mt-2 text-base text-bark-700">
+      Price, transfer steps, and escrow checklist — plus first refusal if an offer lands this week.
+    </p>
+    <form id="exit-form" class="mt-5 space-y-3">
+      <label class="block">
+        <span class="sr-only">Email address</span>
+        <input
+          id="exit-email"
+          type="email"
+          required
+          placeholder="you@company.com"
+          autocomplete="email"
+          class="min-h-12 w-full rounded-xl border border-bark-200 px-4 text-base text-bark-950 placeholder:text-bark-400"
+        />
+      </label>
+      <button type="submit" class="btn-primary w-full">Send me the brief</button>
+      <button type="button" id="exit-close" class="inline-flex min-h-12 w-full items-center justify-center text-sm font-medium text-bark-600 hover:text-bark-900">
+        No thanks, I'll risk missing it
+      </button>
+    </form>
+    <p id="exit-done" class="mt-4 hidden rounded-xl bg-sage-400/15 p-3 text-sm text-bark-800">
+      Saved. Your email client should open with a prefilled inquiry — just hit send.
+    </p>
+  </div>
+</div>
+
+<script>
+  const popup = document.getElementById('exit-popup');
+  const closeBtn = document.getElementById('exit-close');
+  const form = document.getElementById('exit-form');
+  let shown = false;
+  try { shown = localStorage.getItem('abq-exit-shown') === '1'; } catch {}
+
+  const open = () => {
+    if (shown || !popup) return;
+    shown = true;
+    try { localStorage.setItem('abq-exit-shown', '1'); } catch {}
+    popup.classList.remove('hidden');
+    popup.classList.add('flex');
+    document.getElementById('exit-email')?.focus();
+  };
+  const close = () => {
+    if (!popup) return;
+    popup.classList.add('hidden');
+    popup.classList.remove('flex');
+  };
+  closeBtn?.addEventListener('click', close);
+  popup?.addEventListener('click', (e) => { if (e.target === popup) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  // Desktop exit-intent: mouse leaves viewport top. Mobile fallback: 45s dwell, once.
+  document.addEventListener('mouseout', (e) => {
+    if (!e.relatedTarget && e.clientY <= 0) open();
+  });
+  setTimeout(open, 45000);
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('exit-email');
+    const email = (input?.value || '').trim();
+    if (!email) return;
+    try {
+      const leads = JSON.parse(localStorage.getItem('abq-leads') || '[]');
+      leads.push({ email, at: new Date().toISOString(), page: location.pathname });
+      localStorage.setItem('abq-leads', JSON.stringify(leads));
+    } catch {}
+    document.getElementById('exit-done')?.classList.remove('hidden');
+    const subject = encodeURIComponent('Send me the ABQ.Dog acquisition brief');
+    const body = encodeURIComponent(`Please send the acquisition brief for ABQ.Dog to ${email}.\n\nName:\nTimeline:`);
+    window.location.href = `mailto:sales@desertrich.com?subject=${subject}&body=${body}`;
+    setTimeout(close, 2500);
+  });
+</script>
